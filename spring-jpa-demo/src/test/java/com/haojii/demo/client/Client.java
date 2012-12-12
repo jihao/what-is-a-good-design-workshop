@@ -1,43 +1,49 @@
 package com.haojii.demo.client;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.haojii.demo.dao.JPAUserDao;
-import com.haojii.demo.dao.UserDao;
 import com.haojii.demo.domain.User;
-import com.haojii.demo.service.DefaultUserService;
 import com.haojii.demo.service.ServiceLayerException;
 import com.haojii.demo.service.UserService;
 import com.haojii.demo.util.DBUtils;
 
+@ContextConfiguration(locations={"/META-INF/spring/app-context.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
 public class Client {
-	private static final Logger logger = LoggerFactory.getLogger(Client.class);
-	public static void main(String... args) {
-		
-		DBUtils.setUp();
-		
-		User user = new User();
-		user.setUsername("tim");
-		user.setPassword("tim");
-		
-		login(user);
-		
+	@PersistenceContext
+	private EntityManager entityManager;
+	
+	@Autowired
+	private UserService service;
+	
+	private static final Logger logger = Logger.getLogger(Client.class);
+	
+	@BeforeClass
+	public static void before() {
+		DBUtils.setUp();	
+	}
+	@AfterClass
+	public static void after() {
 		DBUtils.tearDown();
 	}
 	
 	// hey, let's just consider it as a mvc-controller method, the returned values will be mapped to some view
-	public static String login(User user) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-demo");
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
+	@Test
+	public void login() {
 		
-		UserDao userDao = new JPAUserDao(em);
-		UserService service = new DefaultUserService(userDao);
+		User user = new User();
+		user.setUsername("tim");
+		user.setPassword("tim");
 		
 		boolean result = false;
 		try {
@@ -46,21 +52,17 @@ public class Client {
 			logger.warn("opps, exception happened during...", e);
 			// flash.add("success","false");
 			// flash.add("message","ServiceLayerException details:"+e.getMessage()); 
-		} finally {
-			em.getTransaction().commit();
-			em.close();
-			factory.close();
-		}
+		} 
 		if(result) {
 			logger.info("User login succeed.");
 			// flash.add("success","true");
 			// flash.add("message","User login succeed.");
-			return "success";
+			// return "success";
 		} else {
 			logger.info("User login failed.");
 			// flash.add("success","false");
 			// flash.add("message","User login failed."); 
-			return "failed";
+			// return "failed";
 		}
 		
 		

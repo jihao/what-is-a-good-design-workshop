@@ -1,6 +1,7 @@
 package com.haojii.demo.client;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.haojii.demo.dao.JDBCUserDao;
 import com.haojii.demo.dao.UserDao;
@@ -11,7 +12,8 @@ import com.haojii.demo.service.UserService;
 import com.haojii.demo.util.DBUtils;
 
 public class Client {
-	private static final Logger logger = Logger.getLogger(Client.class);
+	private static final Logger logger = LoggerFactory.getLogger(Client.class);
+	
 	public static void main(String... args) {
 		
 		DBUtils.setUp();

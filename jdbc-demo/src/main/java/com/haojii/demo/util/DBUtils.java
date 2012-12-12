@@ -5,10 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DBUtils {
-	private static final Logger logger = Logger.getLogger(DBUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(DBUtils.class);
 	private static final String db_file_name_prefix = "db_file";
 
 	static {

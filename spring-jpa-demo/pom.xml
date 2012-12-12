@@ -1,17 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.haojii.design</groupId>
-  <artifactId>jpa-demo</artifactId>
+  <artifactId>spring-jpa-demo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <!-- Hey, the scope of these dependencies were messed up for test purpose, so just don't use it as a starter project -->
   
   <properties>
 		<java-version>1.6</java-version>
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <spring.framework.version>3.1.2.RELEASE</spring.framework.version>
+        <hamcrest.version>1.3</hamcrest.version>
 	</properties>
 	<dependencies>
-
+		
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -37,7 +41,16 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.1.6.Final</version>
-			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.1.0.Final</version>
 		</dependency>
 		
 		<!-- Logging -->
@@ -85,12 +98,52 @@
 
 		<!-- Test -->
 		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>${hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>${hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
-			<artifactId>junit-dep</artifactId>
+			<artifactId>junit</artifactId>
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+	
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>		
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -128,7 +181,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>
@@ -147,7 +199,50 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-
 	</repositories>
-	
+ <!-- 	<pluginRepositories>
+ 		<repository>
+			<id>org.jboss.repository.releases</id>
+			<name>JBoss Maven Release Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		
+		<pluginRepository>
+			<id>Codehaus</id>
+			<url>http://repository.codehaus.org/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	<repositories>
+		<repository>
+			<id>org.jboss.repository.releases</id>
+			<name>JBoss Maven Release Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<downloadUrl>http://www.springframework.org/download</downloadUrl>
+		<site>
+			<id>staging</id>
+			<url>file:///${user.dir}/target/staging/org.springframework.batch.archetype/${pom.artifactId}</url>
+		</site>
+		<repository>
+			<id>spring-release</id>
+			<name>Spring Release Repository</name>
+			<url>file:///${user.dir}/target/staging/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>spring-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>file:///${user.dir}/target/staging/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement> -->
 </project>

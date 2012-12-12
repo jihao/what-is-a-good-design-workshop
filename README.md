@@ -13,4 +13,11 @@ Task2:
   * questions or your concern?
 
 Task3:
-  * 
+  * unchecked exception and API design
+
+Task4:
+  * unchecked exception vs no exception 
+  * do not use exception for control/handle the normal business flow
+
+Task5:
+  * share your thoughts on this workshop
